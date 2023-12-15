@@ -13,7 +13,7 @@ export default function AuthLinks() {
   
   return (
     <>
-      {status === "notAuthenticated" ? (
+      {status === "authenticated" ? (
         <Link href="/login">Login</Link>
       ) : (
         <>
