@@ -1,16 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import ReactQuill from "react-quill";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.bubble.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function WritePage() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
+  useEffect(() => {
+    const Quill = require("quill");
+    const quill = new Quill("#quill-editor", {
+      theme: "bubble",
+    });
+  }, []);
+
   return (
-    <div className="">
+    <div>
       <input
         type="text"
         placeholder="Title"
@@ -18,7 +27,7 @@ export default function WritePage() {
       />
       <div className="relative flex h-[700px] gap-5">
         <button
-          className="border-custom flex h-9 w-9 items-center justify-center rounded-[50%] border-2 border-solid bg-transparent"
+          className="flex h-9 w-9 items-center justify-center rounded-[50%] border-2 border-solid border-custom bg-transparent"
           onClick={() => setOpen(!open)}
         >
           <Image src="/plus.png" alt="Add" width={16} height={16} />
